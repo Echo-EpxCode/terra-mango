@@ -189,8 +189,13 @@
                         <!-- Image Frame -->
                         <div
                             class="relative overflow-hidden rounded-[2rem] border-2 border-[#D4A017]/60 shadow-[0_8px_30px_rgba(212,160,23,0.18)] transition-all duration-700 ease-out group-hover:border-[#D4A017] group-hover:shadow-[0_10px_40px_rgba(244,196,48,0.35)]">
-                            <img src="assets/images/Display img.jpeg" alt="Mango Graham Tapioca Shake illustration"
-                                class="shake-image block w-full transition-transform duration-700 ease-out group-hover:scale-[1.02]">
+                            <!-- Image 1 -->
+                            <img id="shake-image-1" src="assets/images/d-1.jpeg" alt="Mango Graham Tapioca Shake"
+                                class="shake-image block w-full opacity-100 transition-opacity duration-[1200ms] ease-in-out">
+
+                            <!-- Image 2 -->
+                            <img id="shake-image-2" src="assets/images/d-2.jpeg" alt="Mango Graham Tapioca Shake"
+                                class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-[1200ms] ease-in-out">
                         </div>
                     </div>
                 </section>
@@ -216,6 +221,51 @@
             </section>
         </main>
         <script src="js/app.js"></script>
+
+        <script>
+            const shakeImages = [
+                "assets/images/d-1.jpeg",
+                "assets/images/d-2.jpeg",
+                "assets/images/d-3.jpeg"
+            ];
+
+            const imageOne = document.getElementById("shake-image-1");
+            const imageTwo = document.getElementById("shake-image-2");
+
+            let currentImage = 0;
+            let showingFirst = true;
+
+            // Preload all images
+            shakeImages.forEach((src) => {
+                const image = new Image();
+                image.src = src;
+            });
+
+            setInterval(() => {
+                currentImage = (currentImage + 1) % shakeImages.length;
+
+                const nextImage = shakeImages[currentImage];
+
+                if (showingFirst) {
+                    imageTwo.src = nextImage;
+
+                    requestAnimationFrame(() => {
+                        imageOne.classList.replace("opacity-100", "opacity-0");
+                        imageTwo.classList.replace("opacity-0", "opacity-100");
+                    });
+                } else {
+                    imageOne.src = nextImage;
+
+                    requestAnimationFrame(() => {
+                        imageTwo.classList.replace("opacity-100", "opacity-0");
+                        imageOne.classList.replace("opacity-0", "opacity-100");
+                    });
+                }
+
+                showingFirst = !showingFirst;
+
+            }, 3000);
+        </script>
     </body>
 
 </html>
