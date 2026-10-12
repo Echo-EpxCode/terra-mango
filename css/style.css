@@ -154,6 +154,9 @@ body {
     letter-spacing: 0.2em;
     text-transform: uppercase;
 }
+.hero-content .eyebrow {
+    font-size: 24px;
+}
 .hero-content h1 {
     margin: 0;
     font-size: clamp(28px, 8vw, 48px);
